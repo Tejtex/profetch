@@ -2,6 +2,7 @@ package info
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -83,8 +84,12 @@ func fetchLangs(root string, colorCode int) ([]string, error) {
 	var res []string
 	res = append(res, "")
 	res = append(res, utils.ColorText("Languages:", colorCode))
+	total := 0
+	for _, count := range langCount {
+		total += count
+	}
 	for lang, count := range langCount {
-		line := "  " + utils.ColorText(lang+": ", colorCode) + strconv.Itoa(count) + " file(s)"
+		line := "  " + utils.ColorText(lang+": ", colorCode) + strconv.Itoa(count) + " file(s), " + fmt.Sprintf("%d", int64(float64(count) / float64(total) * 100)) + "%"
 		res = append(res, line)
 	}
 	return res, nil

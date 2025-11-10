@@ -16,9 +16,11 @@ func FetchGithubInfo(root string, colorCode int) []string{
 	} 
 
 
-	repo := getGithubRepo(root);
-	repoWithout := strings.TrimSpace(strings.TrimPrefix(repo, "https://github.com/"))
-	res, err := http.Get("https://api.github.com/repos/" + repoWithout);
+	repoURL := getGithubRepo(root);
+	repo := strings.TrimSpace(strings.TrimPrefix(repoURL, "https://github.com/"))
+	repo = strings.TrimPrefix(repo, "git@github.com:")
+	repo = strings.TrimSuffix(repo, ".git")
+	res, err := http.Get("https://api.github.com/repos/" + repo);
 	if err != nil {
 		return make([]string, 0)
 	}
@@ -32,7 +34,7 @@ func FetchGithubInfo(root string, colorCode int) []string{
     }
 	var stars string
 	if starsVal, ok := data["stargazers_count"].(float64); ok {
-    	stars = fmt.Sprintf("%.0f", starsVal)
+		stars = fmt.Sprintf("%.0f", starsVal)
 	} else {
 		stars = "0" // or "-"
 	}
@@ -43,9 +45,10 @@ func FetchGithubInfo(root string, colorCode int) []string{
 		forks = "0" // or "-"
 	}
 
-	result := make([]string, 3);
+	result := make([]string, 4);
 	result[1] = utils.ColorText("Stars: ", colorCode) + stars
 	result[2] = utils.ColorText("Forks: ", colorCode) + forks
+	result[3] = utils.ColorText("License: ", colorCode) + data["license"].(map[string]interface{})["name"].(string)
 
 	return result
 }
@@ -62,7 +65,7 @@ func isGithubRepo(root string)bool {
 		return false
 	}
 
-	return strings.HasPrefix(output, "https://github.com")
+	return strings.Contains(output, "github.com")
 }
 
 func getGithubRepo(root string) string {
