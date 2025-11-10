@@ -30,9 +30,18 @@ func FetchGithubInfo(root string, colorCode int) []string{
         return make([]string, 0)
 
     }
-
-	stars := fmt.Sprintf("%.0f", data["stargazers_count"].(float64))
-	forks := fmt.Sprintf("%.0f", data["forks_count"].(float64))
+	var stars string
+	if starsVal, ok := data["stargazers_count"].(float64); ok {
+    	stars = fmt.Sprintf("%.0f", starsVal)
+	} else {
+		stars = "0" // or "-"
+	}
+	var forks string
+	if forksVal, ok := data["forks_count"].(float64); ok {
+		forks = fmt.Sprintf("%.0f", forksVal)
+	} else {
+		forks = "0" // or "-"
+	}
 
 	result := make([]string, 3);
 	result[1] = utils.ColorText("Stars: ", colorCode) + stars

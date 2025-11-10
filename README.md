@@ -4,7 +4,8 @@ profetch is like neofetch but for projects
 ## installation
 
 ```bash
-go install https://github.com/tejtex/profetch@latest
+go install github.com/tejtex/profetch/cmd/profetch@latest
+
 ```
 
 make sure `$GOPATH/bin` or `$HOME/go/bin` is in your `$PATH`
@@ -14,3 +15,6 @@ make sure `$GOPATH/bin` or `$HOME/go/bin` is in your `$PATH`
 ```bash
 profetch
 ````
+
+## license
+MIT
