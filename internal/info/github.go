@@ -48,7 +48,10 @@ func FetchGithubInfo(root string, colorCode int) []string{
 	result := make([]string, 4);
 	result[1] = utils.ColorText("Stars: ", colorCode) + stars
 	result[2] = utils.ColorText("Forks: ", colorCode) + forks
-	result[3] = utils.ColorText("License: ", colorCode) + data["license"].(map[string]interface{})["name"].(string)
+	if data["license"] != nil {
+			result[3] = utils.ColorText("License: ", colorCode) + data["license"].(map[string]interface{})["name"].(string)
+
+	}
 
 	return result
 }
