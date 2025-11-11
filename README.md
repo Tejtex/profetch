@@ -7,7 +7,7 @@ profetch is like neofetch but for projects
 ## installation
 
 ```bash
-go install github.com/tejtex/profetch/cmd/profetch@latest
+go install github.com/tejtex/profetch@latest
 
 ```
 

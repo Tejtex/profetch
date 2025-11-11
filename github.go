@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
 	"encoding/json"
@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"os/exec"
 	"strings"
-
-	"github.com/tejtex/profetch/src/utils"
 )
 
 func FetchGithubInfo(root string, colorCode int) []string{
@@ -46,10 +44,10 @@ func FetchGithubInfo(root string, colorCode int) []string{
 	}
 
 	result := make([]string, 4);
-	result[1] = utils.ColorText("Stars: ", colorCode) + stars
-	result[2] = utils.ColorText("Forks: ", colorCode) + forks
+	result[1] = ColorText("Stars: ", colorCode) + stars
+	result[2] = ColorText("Forks: ", colorCode) + forks
 	if data["license"] != nil {
-			result[3] = utils.ColorText("License: ", colorCode) + data["license"].(map[string]interface{})["name"].(string)
+			result[3] = ColorText("License: ", colorCode) + data["license"].(map[string]interface{})["name"].(string)
 
 	}
 
