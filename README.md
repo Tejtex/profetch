@@ -19,7 +19,12 @@ make sure `$GOPATH/bin` or `$HOME/go/bin` is in your `$PATH`
 
 ```bash
 profetch
-````
+```
+
+## contributing
+
+contributions are welcome! feel free to fork the repo, submit issues, or create pull requests.
+check for issues labeled `good first issue` if you want a quick way to start.
 
 ## license
 MIT
