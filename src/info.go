@@ -1,4 +1,4 @@
-package info
+package src
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	ignore "github.com/sabhiram/go-gitignore"
-	"github.com/tejtex/profetch/internal/utils"
+	"github.com/tejtex/profetch/src/utils"
 )
 
 var allowedExts = map[string]string{

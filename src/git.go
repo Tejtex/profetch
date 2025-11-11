@@ -1,4 +1,4 @@
-package info
+package src
 
 import (
 	"os"
@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tejtex/profetch/internal/utils"
+	"github.com/tejtex/profetch/src/utils"
 )
 
 func FetchGitInfo(root string, colorCode int) []string {

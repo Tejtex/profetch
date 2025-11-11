@@ -1,4 +1,4 @@
-package ascii
+package src
 
 import (
 	"fmt"

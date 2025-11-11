@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/tejtex/profetch/internal/ascii"
-	"github.com/tejtex/profetch/internal/display"
-	"github.com/tejtex/profetch/internal/info"
+	"github.com/tejtex/profetch/src/ascii"
+	"github.com/tejtex/profetch/src/display"
+	"github.com/tejtex/profetch/src/info"
 )
 
 func main() {

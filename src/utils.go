@@ -1,4 +1,4 @@
-package utils
+package main
 
 import "fmt"
 func ColorText(text string, colorCode int) string {
