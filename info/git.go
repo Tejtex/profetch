@@ -1,4 +1,4 @@
-package main
+package info
 
 import (
 	"os"
@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/tejtex/profetch/utils"
 )
 
 func FetchGitInfo(root string, colorCode int) []string {
@@ -18,11 +20,11 @@ func FetchGitInfo(root string, colorCode int) []string {
 
 	res := make([]string, 6)
 	
-	res[1] = Format("Commits", commits, colorCode)
-	res[2] = Format("Last commit", lastCommit, colorCode)
-	res[3] = Format("Contributors", contributors, colorCode)
-	res[4] = Format("Repo age", FormatDuration(age), colorCode)
-	res[5] = Format("Version", version, colorCode)
+	res[1] = utils.Format("Commits", commits, colorCode)
+	res[2] = utils.Format("Last commit", lastCommit, colorCode)
+	res[3] = utils.Format("Contributors", contributors, colorCode)
+	res[4] = utils.Format("Repo age", utils.FormatDuration(age), colorCode)
+	res[5] = utils.Format("Version", version, colorCode)
 	return res
 }
 

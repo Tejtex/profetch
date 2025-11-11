@@ -1,4 +1,4 @@
-package main
+package info
 
 import (
 	"encoding/json"
@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os/exec"
 	"strings"
+
+	"github.com/tejtex/profetch/utils"
 )
 
 func FetchGithubInfo(root string, colorCode int) []string{
@@ -50,15 +52,15 @@ func FetchGithubInfo(root string, colorCode int) []string{
 	}
 
 	result := make([]string, 6);
-	result[1] = Format("Stars", stars, colorCode)
-	result[2] = Format("Forks", forks, colorCode)
-	result[3] = Format("Issues", openIssues, colorCode)
+	result[1] = utils.Format("Stars", stars, colorCode)
+	result[2] = utils.Format("Forks", forks, colorCode)
+	result[3] = utils.Format("Issues", openIssues, colorCode)
 	if data["license"] != nil {
-		result[4] = Format("License", data["license"].(map[string]interface{})["name"].(string), colorCode)
+		result[4] = utils.Format("License", data["license"].(map[string]interface{})["name"].(string), colorCode)
 	} else {
-		result[4] = Format("License", "-", colorCode)
+		result[4] = utils.Format("License", "-", colorCode)
 	}
-	result[5] = Format("URL", strings.TrimSpace(repoURL), colorCode)
+	result[5] = utils.Format("URL", strings.TrimSpace(repoURL), colorCode)
 
 	return result
 }

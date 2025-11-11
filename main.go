@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/tejtex/profetch/info"
 )
 
 func main() {
@@ -16,7 +18,7 @@ func main() {
 	}
 
 	logo, ok := FetchLogo(".");
-	info, err := FetchInfo(".", rand.Intn(37 - 31) + 31);
+	info, err := info.FetchInfo(".", rand.Intn(37 - 31) + 31);
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "profetch: %v\n", err);
 		os.Exit(67);

@@ -1,4 +1,4 @@
-package main
+package info
 
 import (
 	"bufio"
@@ -8,6 +8,8 @@ import (
 	"strconv"
 
 	ignore "github.com/sabhiram/go-gitignore"
+	"github.com/tejtex/profetch/pkgmgr"
+	"github.com/tejtex/profetch/utils"
 )
 
 var allowedExts = map[string]string{
@@ -53,13 +55,34 @@ func FetchInfo(root string, colorCode int) ([]string, error) {
 	github := FetchGithubInfo(root, colorCode)
 	res = append(res, github...);
 
+	pkgmgrs := []pkgmgr.PackageManager{pkgmgr.Npm{}}
+	detected := false
+	count := 0
+	name := ""
+	for _, mgr := range pkgmgrs {
+		path, exists := mgr.Detect(root);
+		if exists {
+			count = mgr.CountDeps(path);
+			name = mgr.GetName();
+			detected = true;
+		}
+	}
+
+	if detected {
+		res = append(res, "");
+		res = append(res, utils.Format("Package manager", name, colorCode))
+		res = append(res, utils.Format("Deps count", count, colorCode))
+	}
+
+
+
 	return res, nil
 }
 
 func fetchProjName(root string, colorCode int ) ([]string, error) {
 	absPath, _ := filepath.Abs(root)
 	dirName := filepath.Base(absPath)
-	res := []string{ColorText(ColorText(ColorText(dirName, 1), 4), colorCode), ""}
+	res := []string{utils.ColorText(utils.ColorText(utils.ColorText(dirName, 1), 4), colorCode), ""}
 	return res, nil
 }
 func fetchLangs(root string, colorCode int) ([]string, error) {
@@ -82,13 +105,13 @@ func fetchLangs(root string, colorCode int) ([]string, error) {
 	// Format output
 	var res []string
 	res = append(res, "")
-	res = append(res, ColorText("Languages:", colorCode))
+	res = append(res, utils.ColorText("Languages:", colorCode))
 	total := 0
 	for _, count := range langCount {
 		total += count
 	}
 	for lang, count := range langCount {
-		line := "  " + ColorText(lang+": ", colorCode) + strconv.Itoa(count) + " file(s), " + fmt.Sprintf("%d", int64(float64(count) / float64(total) * 100)) + "%"
+		line := "  " + utils.ColorText(lang+": ", colorCode) + strconv.Itoa(count) + " file(s), " + fmt.Sprintf("%d", int64(float64(count) / float64(total) * 100)) + "%"
 		res = append(res, line)
 	}
 	return res, nil
@@ -100,8 +123,8 @@ func addFilesAndLines(root string, colorCode int) ([]string, error) {
 		return make([]string, 0), err
 	}
 	res := make([]string, 2)
-	res[0] = Format("Lines", lineCount, colorCode)
-	res[1] = Format("Files", fileCount, colorCode)
+	res[0] = utils.Format("Lines", lineCount, colorCode)
+	res[1] = utils.Format("Files", fileCount, colorCode)
 	return res, nil
 }
 
@@ -142,7 +165,7 @@ func countSize(root string, colorCode int) ([]string, error ) {
 	if err != nil {
 		return make([]string, 0), err
 	}
-	return []string{Format("Size", strconv.Itoa(int(size / 1024)) + "K", colorCode)}, nil
+	return []string{utils.Format("Size", strconv.Itoa(int(size / 1024)) + "K", colorCode)}, nil
 }
 
 func countFilesAndLines(root string) (int, int, error) {
